@@ -1,0 +1,695 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#070907">
+  <meta name="description" content="A personal portfolio introducing my background, education, and skills.">
+  <title>June Carl Andrew Fiel</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f5f8ee;
+      --surface: #ffffff;
+      --ink: #172014;
+      --muted: #6c7564;
+      --line: #dfe7d4;
+      --accent: #7ce900;
+      --accent-strong: #376900;
+      --accent-soft: #eff9dc;
+      --accent-button-text: #14200b;
+      --portrait-start: #e9f8cf;
+      --portrait-end: #a8d462;
+      --portrait-ink: #25351b;
+      --portrait-clothes: #66c900;
+      --shadow: 0 18px 50px rgba(37, 61, 14, .09);
+      --serif: Georgia, "Times New Roman", serif;
+      --sans: "Segoe UI", Arial, sans-serif;
+    }
+
+    [data-theme="dark"] {
+      color-scheme: dark;
+      --paper: #070907;
+      --surface: #121710;
+      --ink: #f3f7ef;
+      --muted: #a5b09d;
+      --line: #293328;
+      --accent: #a5ff00;
+      --accent-strong: #b7ff4a;
+      --accent-soft: #1e2c14;
+      --accent-button-text: #101607;
+      --portrait-start: #243817;
+      --portrait-end: #080c07;
+      --portrait-ink: #121a0f;
+      --portrait-clothes: #a5ff00;
+      --shadow: 0 18px 50px rgba(0, 0, 0, .38);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 92px; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      line-height: 1.65;
+      transition: background .2s ease, color .2s ease;
+    }
+    a { color: inherit; }
+    button, input, textarea { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    .wrap { width: min(1120px, calc(100% - 48px)); margin-inline: auto; }
+
+    .site-header {
+      position: sticky;
+      z-index: 10;
+      top: 0;
+      border-bottom: 1px solid var(--line);
+      background: color-mix(in srgb, var(--paper) 92%, transparent);
+      backdrop-filter: blur(14px);
+    }
+    .header-inner { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; text-decoration: none; font-weight: 700; letter-spacing: -.03em; }
+    .brand-mark {
+      display: grid;
+      width: 35px;
+      height: 35px;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--accent);
+      color: var(--accent-button-text);
+      font-family: var(--serif);
+      font-size: 15px;
+    }
+    .nav-area, .nav-links { display: flex; align-items: center; }
+    .nav-area { gap: 26px; }
+    .nav-links { gap: 28px; }
+    .nav-links a { color: var(--muted); font-size: 13px; font-weight: 600; text-decoration: none; transition: color .2s; }
+    .nav-links a:hover, .nav-links a[aria-current="location"] { color: var(--accent-strong); }
+    .icon-button, .menu-button {
+      display: inline-grid;
+      width: 40px;
+      height: 40px;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: var(--surface);
+      color: var(--ink);
+      cursor: pointer;
+    }
+    .icon-button:hover, .menu-button:hover { border-color: var(--accent); color: var(--accent-strong); }
+    .menu-button { display: none; border-radius: 12px; }
+
+    @media (max-width: 1000px) and (min-width: 761px) {
+      .header-inner { gap: 12px; }
+      .nav-area { gap: 10px; }
+      .nav-links { gap: 10px; }
+      .nav-links a { font-size: 11px; }
+    }
+
+    .hero { display: grid; min-height: 590px; grid-template-columns: 1.12fr .88fr; align-items: center; gap: 70px; padding-block: 74px 80px; }
+    .eyebrow { display: flex; align-items: center; gap: 9px; margin: 0 0 22px; color: var(--accent-strong); font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+    .eyebrow::before { width: 23px; height: 1px; background: var(--accent); content: ""; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { max-width: 650px; margin-bottom: 22px; font-family: var(--serif); font-size: clamp(52px, 6vw, 78px); font-weight: 400; letter-spacing: -.055em; line-height: 1.04; }
+    h1 span { color: var(--accent-strong); font-style: italic; }
+    .hero-copy { max-width: 490px; margin-bottom: 30px; color: var(--muted); font-size: 16px; }
+    .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+    .button { display: inline-flex; min-height: 47px; align-items: center; justify-content: center; gap: 10px; padding: 0 19px; border: 1px solid var(--accent); border-radius: 7px; background: var(--accent); color: var(--accent-button-text); font-size: 13px; font-weight: 650; text-decoration: none; transition: transform .18s, background .18s; }
+    .button:hover { transform: translateY(-2px); background: var(--accent-strong); color: var(--surface); }
+    .button.secondary { background: transparent; color: var(--ink); border-color: var(--line); }
+    .button.secondary:hover { border-color: var(--accent); color: var(--accent-strong); }
+    .portrait-card { position: relative; display: flex; flex-direction: column; width: min(100%, 385px); aspect-ratio: .91; justify-self: end; padding: 14px; border: 1px solid var(--line); border-radius: 180px 180px 18px 18px; background: var(--surface); box-shadow: var(--shadow); }
+    .portrait {
+      display: grid;
+      width: 100%;
+      height: auto;
+      flex: 1;
+      min-height: 0;
+      place-items: center;
+      overflow: hidden;
+      border-radius: 170px 170px 11px 11px;
+      background: radial-gradient(ellipse at 70% 20%, rgba(255,255,255,.62), transparent 40%), linear-gradient(145deg, var(--portrait-start), var(--portrait-end));
+      color: var(--portrait-ink);
+    }
+    .portrait svg { width: 75%; height: auto; max-height: 85%; }
+    .profile-photo { width: 100%; height: 100%; object-fit: cover; }
+    .photo-change-button {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--surface);
+      color: var(--ink);
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 650;
+      box-shadow: var(--shadow);
+    }
+    .photo-change-button:hover, .photo-change-button:focus-visible { border-color: var(--accent); color: var(--accent-strong); }
+    .photo-input { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; clip-path: inset(50%); }
+    .photo-status { min-height: 18px; margin: 8px 0 0; color: var(--muted); font-size: 11px; text-align: center; }
+    .about-photo-card { position: relative; width: min(100%, 300px); }
+    .about-photo-frame {
+      display: grid;
+      min-height: 280px;
+      aspect-ratio: .86;
+      place-items: center;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: linear-gradient(145deg, var(--portrait-start), var(--portrait-end));
+    }
+    .about-photo-frame .profile-photo { position: absolute; inset: 0; }
+    .about-photo-placeholder { display: grid; width: 78px; height: 78px; place-items: center; border-radius: 50%; background: var(--accent); color: var(--accent-button-text); }
+    .about-photo-placeholder svg { width: 38px; height: 38px; }
+    .about-photo-placeholder[hidden] { display: none; }
+    .about-photo-card .photo-change-button { top: auto; right: 12px; bottom: 12px; }
+    .portrait-note { position: absolute; right: -24px; bottom: 42px; display: flex; align-items: center; gap: 10px; padding: 13px 17px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); box-shadow: var(--shadow); font-size: 12px; font-weight: 650; }
+    .note-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+
+    .section { padding-block: 88px; border-top: 1px solid var(--line); }
+    .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 28px; margin-bottom: 37px; }
+    .section-heading .eyebrow { margin-bottom: 11px; }
+    h2 { margin-bottom: 0; font-family: var(--serif); font-size: clamp(36px, 4vw, 49px); font-weight: 400; letter-spacing: -.04em; line-height: 1.1; }
+    .section-intro { max-width: 385px; margin: 0 0 3px; color: var(--muted); font-size: 14px; }
+    .about-grid { display: grid; grid-template-columns: .72fr 1.05fr .9fr; gap: 30px; align-items: start; }
+    .about-copy { color: var(--muted); font-size: 15px; }
+    .about-copy p:last-child { margin-bottom: 0; }
+    .facts { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .fact { min-height: 106px; padding: 18px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); }
+    .fact-label { display: block; margin-bottom: 8px; color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    .fact strong { font-family: var(--serif); font-size: 19px; font-weight: 400; }
+    .education-list { display: grid; gap: 14px; }
+    .education-card { display: grid; grid-template-columns: 150px 1fr auto; align-items: start; gap: 26px; padding: 25px 27px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+    .education-date { padding-top: 3px; color: var(--accent-strong); font-size: 12px; font-weight: 700; }
+    .education-card h3 { margin-bottom: 5px; font-family: var(--serif); font-size: 22px; font-weight: 400; letter-spacing: -.02em; }
+    .education-card p { margin-bottom: 0; color: var(--muted); font-size: 13px; }
+    .education-tag { padding: 5px 10px; border-radius: 20px; background: var(--accent-soft); color: var(--accent-strong); font-size: 10px; font-weight: 700; white-space: nowrap; }
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .skill-card { min-height: 185px; padding: 23px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); transition: transform .18s, border-color .18s; }
+    .skill-card:hover { transform: translateY(-3px); border-color: var(--accent); }
+    .skill-number { display: inline-grid; width: 31px; height: 31px; place-items: center; margin-bottom: 23px; border-radius: 50%; background: var(--accent-soft); color: var(--accent-strong); font-family: var(--serif); font-size: 13px; }
+    .skill-card h3 { margin-bottom: 7px; font-family: var(--serif); font-size: 21px; font-weight: 400; }
+    .skill-card p { margin-bottom: 0; color: var(--muted); font-size: 12px; }
+    .contact-panel { display: grid; grid-template-columns: 1fr .85fr; gap: 60px; padding: 43px; border: 1px solid var(--line); border-radius: 13px; background: var(--surface); box-shadow: var(--shadow); }
+    .contact-panel h2 { margin-bottom: 16px; }
+    .contact-copy { max-width: 420px; margin-bottom: 20px; color: var(--muted); font-size: 14px; }
+    .contact-email, .contact-phone { display: block; color: var(--accent-strong); font-size: 13px; font-weight: 700; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+    .contact-phone { margin-top: 10px; }
+    .contact-form { display: grid; gap: 12px; }
+    .contact-form label { display: grid; gap: 6px; color: var(--muted); font-size: 11px; font-weight: 650; }
+    .contact-form input, .contact-form textarea { width: 100%; padding: 11px 12px; border: 1px solid var(--line); border-radius: 6px; outline: none; background: var(--paper); color: var(--ink); font-size: 13px; }
+    .contact-form input:focus, .contact-form textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+    .contact-form textarea { min-height: 85px; resize: vertical; }
+    .contact-form .button { justify-self: start; cursor: pointer; }
+    .form-note { min-height: 18px; margin: -5px 0 0; color: var(--muted); font-size: 11px; }
+    footer { display: flex; justify-content: space-between; gap: 20px; padding-block: 24px 32px; color: var(--muted); font-size: 11px; }
+    footer a { color: var(--accent-strong); text-decoration: none; }
+    .back-top { text-decoration: underline; text-underline-offset: 3px; }
+
+    @media (max-width: 760px) {
+      .wrap { width: min(100% - 36px, 560px); }
+      .header-inner { min-height: 68px; }
+      .nav-area { gap: 10px; }
+      .menu-button { display: inline-grid; }
+      .nav-links {
+        position: absolute;
+        top: calc(100% + 1px);
+        right: 0;
+        left: 0;
+        display: none;
+        align-items: stretch;
+        gap: 0;
+        padding: 8px 18px 14px;
+        border-bottom: 1px solid var(--line);
+        background: var(--paper);
+      }
+      .nav-links.open { display: flex; flex-direction: column; }
+      .nav-links a { padding: 11px 5px; }
+      .hero { min-height: 0; grid-template-columns: 1fr; gap: 45px; padding-block: 62px 68px; }
+      .hero-copy { font-size: 15px; }
+      .portrait-card { width: min(78%, 330px); justify-self: center; }
+      .portrait-note { right: -18px; bottom: 28px; }
+      .about-photo-card { width: min(100%, 330px); justify-self: center; }
+      .section { padding-block: 67px; }
+      .section-heading { align-items: start; flex-direction: column; gap: 15px; margin-bottom: 28px; }
+      .about-grid { grid-template-columns: 1fr; gap: 29px; }
+      .education-card { grid-template-columns: 1fr auto; gap: 10px 15px; padding: 20px; }
+      .education-date { grid-column: 1 / -1; }
+      .education-tag { grid-column: 2; grid-row: 2; }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+      .contact-panel { grid-template-columns: 1fr; gap: 30px; padding: 27px 22px; }
+    }
+    @media (max-width: 430px) {
+      .wrap { width: calc(100% - 30px); }
+      .brand { font-size: 14px; }
+      h1 { font-size: 54px; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .skill-card { min-height: 150px; }
+      .skill-number { margin-bottom: 13px; }
+      footer { flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="#home" aria-label="June Carl Andrew Fiel, home">
+        <span class="brand-mark" data-profile-initials aria-hidden="true">JCF</span>
+        <span data-profile="name">June Carl Andrew Fiel</span>
+      </a>
+      <div class="nav-area">
+        <nav class="nav-links" id="site-nav" aria-label="Main navigation">
+          <a href="#home">Home</a>
+          <a href="#about">About Me</a>
+          <a href="#skills">Skills</a>
+          <a href="#course">Course</a>
+          <a href="#experience">Experience</a>
+          <a href="#education">Education</a>
+          <a href="#contact">Contact</a>
+          <a href="image/calculator.html">Calculator</a>
+        </nav>
+        <button class="icon-button" id="theme-toggle" type="button" aria-label="Switch to dark theme" title="Toggle color theme">
+          <svg id="theme-icon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20.2 15.4A8.5 8.5 0 0 1 8.6 3.8 8.5 8.5 0 1 0 20.2 15.4Z"/>
+          </svg>
+        </button>
+        <button class="menu-button" id="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="site-nav">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="wrap hero" id="home" aria-labelledby="hero-title">
+      <div>
+        <p class="eyebrow">Personal portfolio</p>
+        <h1 id="hero-title">Hello, I'm <span data-profile="name">June Carl Andrew Fiel</span></h1>
+        <p class="hero-copy" data-profile="introduction">I’m a BSIT student at Yllana Bay View College Inc. in Pagadian City, growing my skills in information technology.</p>
+        <div class="actions">
+          <a class="button" href="#about">Get to know me <span aria-hidden="true">↗</span></a>
+          <a class="button secondary" href="#education">My education</a>
+        </div>
+      </div>
+      <div class="portrait-card">
+        <div class="portrait">
+          <img class="profile-photo" id="front-photo" src="image/front.jpg" alt="June Carl Andrew Fiel">
+          <svg id="front-photo-placeholder" viewBox="0 0 260 290" fill="none" aria-hidden="true" hidden>
+            <circle cx="130" cy="82" r="48" fill="#F0D8C1"/>
+            <path d="M82 81c0-36 19-60 50-60 32 0 52 24 52 59-10-12-19-19-31-23-15 17-39 25-71 24Z" fill="var(--portrait-ink)"/>
+            <path d="M40 278c5-67 38-105 90-105s85 38 90 105" fill="var(--portrait-clothes)"/>
+            <path d="M107 153h46v39c-7 11-16 16-23 16s-16-5-23-16v-39Z" fill="#E8C6A7"/>
+            <path d="M88 91c0-8 5-13 11-13s11 5 11 13-5 13-11 13-11-5-11-13ZM150 91c0-8 5-13 11-13s11 5 11 13-5 13-11 13-11-5-11-13Z" fill="var(--portrait-ink)"/>
+            <path d="M113 126c10 9 24 9 34 0" stroke="#A96D55" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <button class="photo-change-button" id="photo-change" data-photo-change data-photo-target="front" type="button">Change front photo</button>
+        <input class="photo-input" id="photo-input" type="file" accept="image/jpeg,image/png,image/webp" aria-label="Choose a new profile photo">
+        <p class="photo-status" id="photo-status" aria-live="polite">You can change your photo anytime. It is saved in this browser.</p>
+        <div class="portrait-note"><span class="note-dot" aria-hidden="true"></span> Open to learning &amp; growing</div>
+      </div>
+    </section>
+
+    <section class="section" id="about" aria-labelledby="about-title">
+      <div class="wrap">
+        <div class="section-heading">
+          <div><p class="eyebrow">A little about me</p><h2 id="about-title">The person behind<br>the portfolio.</h2></div>
+          <p class="section-intro">A quick introduction to who I am, where I’m from, and what I’m working toward.</p>
+        </div>
+        <div class="about-grid">
+          <div class="about-photo-card">
+            <div class="about-photo-frame">
+              <img class="profile-photo" id="about-photo" src="image/about.jpg" alt="June Carl Andrew Fiel at a school event">
+              <div class="about-photo-placeholder" aria-hidden="true" hidden>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="8" r="4"/>
+                  <path d="M4.5 21a7.5 7.5 0 0 1 15 0"/>
+                </svg>
+              </div>
+            </div>
+            <button class="photo-change-button" data-photo-change data-photo-target="about" type="button">Change About photo</button>
+          </div>
+          <div class="about-copy">
+            <p>I’m <strong data-profile="name">June Carl Andrew Fiel</strong>, a <strong data-profile="courseShort">BSIT</strong> student from <strong data-profile="city">Pagadian City</strong> who enjoys learning, taking on challenges, and building useful things.</p>
+            <p>Right now, I’m focused on growing in <strong data-profile="focus">Information Technology</strong>. Outside of school, I enjoy <strong data-profile="interests">Programming and Reading</strong>.</p>
+          </div>
+          <div class="facts" aria-label="Quick facts">
+            <div class="fact"><span class="fact-label">School</span><strong data-profile="school">Yllana Bay View College Inc.</strong></div>
+            <div class="fact"><span class="fact-label">Based in</span><strong data-profile="city">Pagadian City</strong></div>
+            <div class="fact"><span class="fact-label">Course</span><strong data-profile="course">Bachelor of Science in Information Technology</strong></div>
+            <div class="fact"><span class="fact-label">Interested in</span><strong data-profile="interests">Programming and Reading</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="education" aria-labelledby="education-title">
+      <div class="wrap">
+        <div class="section-heading">
+          <div><p class="eyebrow">Learning journey</p><h2 id="education-title">Education.</h2></div>
+          <p class="section-intro">The places and experiences that have shaped what I know so far.</p>
+        </div>
+        <div class="education-list" id="education-list"></div>
+      </div>
+    </section>
+
+    <section class="section" id="skills" aria-labelledby="skills-title">
+      <div class="wrap">
+        <div class="section-heading">
+          <div><p class="eyebrow">What I bring</p><h2 id="skills-title">Skills &amp; strengths.</h2></div>
+          <p class="section-intro">A mix of practical abilities and personal strengths I’m continuing to develop.</p>
+        </div>
+        <div class="skills-grid" id="skills-list"></div>
+      </div>
+    </section>
+
+    <section class="section" id="course" aria-labelledby="course-title">
+      <div class="wrap">
+        <div class="section-heading">
+          <div><p class="eyebrow">What I’m learning</p><h2 id="course-title">My course.</h2></div>
+          <p class="section-intro">A closer look at my current program and the subjects I’m exploring.</p>
+        </div>
+        <div class="education-list">
+          <article class="education-card">
+            <span class="education-date">Current program</span>
+            <div><h3 data-profile="course">Bachelor of Science in Information Technology</h3><p><span data-profile="school">Yllana Bay View College Inc.</span> · <span data-profile="focus">Information Technology</span> · <span data-profile="city">Pagadian City</span></p><p style="margin-top:8px" data-profile="courseDescription">Currently studying BSIT and building a foundation in information technology.</p></div>
+            <span class="education-tag">In progress</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="experience" aria-labelledby="experience-title">
+      <div class="wrap">
+        <div class="section-heading">
+          <div><p class="eyebrow">Things I’ve done</p><h2 id="experience-title">Experience.</h2></div>
+          <p class="section-intro">Projects, volunteer work, school activities, or jobs where I’ve put my skills into practice.</p>
+        </div>
+        <div class="education-list" id="experience-list"></div>
+      </div>
+    </section>
+
+    <section class="section" id="contact" aria-labelledby="contact-title">
+      <div class="wrap">
+        <div class="contact-panel">
+          <div>
+            <p class="eyebrow">Say hello</p>
+            <h2 id="contact-title">Let’s connect.</h2>
+            <p class="contact-copy">Have a question, an opportunity, or just want to say hi? Send a note and I’ll be glad to hear from you.</p>
+            <a class="contact-email" href="mailto:your.email@example.com" data-profile-email>your.email@example.com</a>
+            <a class="contact-phone" href="tel:09939453975" data-profile-phone>09939453975</a>
+          </div>
+          <form class="contact-form" id="contact-form">
+            <label for="sender-name">Your name<input id="sender-name" name="name" autocomplete="name" maxlength="100" required placeholder="Name"></label>
+            <label for="sender-email">Your email<input id="sender-email" name="email" type="email" autocomplete="email" maxlength="254" required placeholder="you@example.com"></label>
+            <label for="sender-message">Message<textarea id="sender-message" name="message" maxlength="5000" required placeholder="What would you like to say?"></textarea></label>
+            <button class="button" type="submit">Write me a message <span aria-hidden="true">↗</span></button>
+            <p class="form-note" id="form-note" aria-live="polite">Submitting opens your email app so you can send the message.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <span>© <span id="year"></span> <span data-profile="name">June Carl Andrew Fiel</span>. Made with care.</span>
+    <a class="back-top" href="#home">Back to top ↑</a>
+  </footer>
+  <!-- Edit your personal details, education, skills, and experience in this single data block. -->
+  <script type="application/json" id="profile-data">
+  {
+    "name": "June Carl Andrew Fiel",
+    "city": "Pagadian City",
+    "school": "Yllana Bay View College Inc.",
+    "course": "Bachelor of Science in Information Technology",
+    "courseShort": "BSIT",
+    "focus": "Information Technology",
+    "interests": "Programming and Reading",
+    "introduction": "I’m a {{courseShort}} student at {{school}} in {{city}}, growing my skills in {{focus}}.",
+    "courseDescription": "Currently studying {{courseShort}} and building a foundation in {{focus}}.",
+    "email": "zackilly220@gmail.com",
+    "phone": "09939453975",
+    "education": [
+      {
+        "date": "2026 — Present",
+        "title": "{{school}}",
+        "subtitle": "{{focus}} · {{city}}",
+        "description": "Currently pursuing my {{course}} degree and developing skills in {{focus}}.",
+        "status": "In progress"
+      },
+      {
+        "date": "2023 — 2024",
+        "title": "{{school}} SHS Department",
+        "subtitle": "{{school}} · {{city}}",
+        "description": "Completed senior high school.",
+        "status": "Completed"
+      }
+    ],
+    "skills": [
+      { "title": "Communication", "description": "Sharing ideas clearly and listening thoughtfully to others." },
+      { "title": "Teamwork", "description": "Working together, contributing reliably, and learning from a group." },
+      { "title": "Problem-solving", "description": "Breaking down challenges and exploring practical solutions." },
+      { "title": "Organization", "description": "Managing time, staying focused, and keeping work on track." },
+      { "title": "Programming Languages", "description": "Java, Python, PHP, and C++." },
+      { "title": "Web Development", "description": "JavaScript, HTML, and CSS." }
+    ],
+    "experience": []
+  }
+  </script>
+  <script>
+    const profile = JSON.parse(document.getElementById("profile-data").textContent);
+
+    function resolveProfileText(value) {
+      return value.replace(/\{\{(\w+)\}\}/g, (match, key) =>
+        typeof profile[key] === "string" ? profile[key] : match
+      );
+    }
+
+    document.title = `${profile.name} — Personal Portfolio`;
+    document.querySelectorAll("[data-profile]").forEach((element) => {
+      element.textContent = resolveProfileText(profile[element.dataset.profile]);
+    });
+    document.querySelectorAll("[data-profile-initials]").forEach((element) => {
+      element.textContent = profile.name.trim().split(/\s+/).slice(0, 3).map((part) => part[0]).join("").toUpperCase();
+    });
+    document.querySelectorAll("[data-profile-email]").forEach((element) => {
+      element.textContent = profile.email;
+      element.href = `mailto:${profile.email}`;
+    });
+    document.querySelectorAll("[data-profile-phone]").forEach((element) => {
+      element.textContent = profile.phone;
+      element.href = `tel:${profile.phone}`;
+    });
+    const contactForm = document.getElementById("contact-form");
+    const formNote = document.getElementById("form-note");
+    contactForm.action = `mailto:${profile.email}`;
+    contactForm.method = "post";
+    contactForm.enctype = "text/plain";
+    contactForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const formData = new FormData(contactForm);
+      const senderName = String(formData.get("name")).trim();
+      const senderEmail = String(formData.get("email")).trim();
+      const message = String(formData.get("message")).trim();
+      const subject = encodeURIComponent(`Portfolio message from ${senderName}`);
+      const body = encodeURIComponent(`Name: ${senderName}\nEmail: ${senderEmail}\n\n${message}`);
+      formNote.textContent = "Your email app should open with the message ready to send.";
+      window.location.href = `mailto:${encodeURIComponent(profile.email)}?subject=${subject}&body=${body}`;
+    });
+    document.querySelector(".brand").setAttribute("aria-label", `${profile.name}, home`);
+    document.getElementById("front-photo").alt = `${profile.name} profile photo`;
+    document.getElementById("about-photo").alt = `${profile.name} at a school event`;
+
+    function renderTimeline(containerId, items, emptyMessage) {
+      const container = document.getElementById(containerId);
+      if (items.length === 0) {
+        const emptyState = document.createElement("p");
+        emptyState.className = "section-intro";
+        emptyState.textContent = emptyMessage;
+        container.append(emptyState);
+        return;
+      }
+
+      items.forEach((item) => {
+        const card = document.createElement("article");
+        card.className = "education-card";
+        const date = document.createElement("span");
+        date.className = "education-date";
+        date.textContent = item.date;
+        const details = document.createElement("div");
+        const title = document.createElement("h3");
+        title.textContent = resolveProfileText(item.title);
+        const subtitle = document.createElement("p");
+        subtitle.textContent = resolveProfileText(item.subtitle);
+        const description = document.createElement("p");
+        description.style.marginTop = "8px";
+        description.textContent = resolveProfileText(item.description);
+        const status = document.createElement("span");
+        status.className = "education-tag";
+        status.textContent = item.status;
+        details.append(title, subtitle, description);
+        card.append(date, details, status);
+        container.append(card);
+      });
+    }
+
+    profile.skills.forEach((skill, index) => {
+      const card = document.createElement("article");
+      card.className = "skill-card";
+      const number = document.createElement("span");
+      number.className = "skill-number";
+      number.textContent = String(index + 1).padStart(2, "0");
+      const title = document.createElement("h3");
+      title.textContent = skill.title;
+      const description = document.createElement("p");
+      description.textContent = skill.description;
+      card.append(number, title, description);
+      document.getElementById("skills-list").append(card);
+    });
+
+    renderTimeline("education-list", profile.education, "Education details will appear here.");
+    renderTimeline("experience-list", profile.experience, "Add your projects, school activities, or work experience to the profile data above.");
+
+    const root = document.documentElement;
+    const themeToggle = document.getElementById("theme-toggle");
+    const themeIcon = document.getElementById("theme-icon");
+    const menuToggle = document.getElementById("menu-toggle");
+    const nav = document.getElementById("site-nav");
+    const savedTheme = localStorage.getItem("portfolio-theme-neon");
+
+    function setTheme(theme) {
+      root.dataset.theme = theme;
+      const dark = theme === "dark";
+      themeToggle.setAttribute("aria-label", dark ? "Switch to light theme" : "Switch to dark theme");
+      themeIcon.innerHTML = dark
+        ? '<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/>'
+        : '<path d="M20.2 15.4A8.5 8.5 0 0 1 8.6 3.8 8.5 8.5 0 1 0 20.2 15.4Z"/>';
+      document.querySelector('meta[name="theme-color"]').content = dark ? "#070907" : "#f5f8ee";
+    }
+
+    setTheme(savedTheme === "light" ? "light" : "dark");
+    themeToggle.addEventListener("click", () => {
+      const nextTheme = root.dataset.theme === "dark" ? "light" : "dark";
+      setTheme(nextTheme);
+      localStorage.setItem("portfolio-theme-neon", nextTheme);
+    });
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = nav.classList.toggle("open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.setAttribute("aria-label", isOpen ? "Close navigation menu" : "Open navigation menu");
+    });
+    nav.addEventListener("click", (event) => {
+      if (event.target.closest("a")) {
+        nav.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Open navigation menu");
+      }
+    });
+
+    const sections = document.querySelectorAll("main section[id]");
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        nav.querySelectorAll("a").forEach((link) => {
+          if (new URL(link.href).hash === `#${entry.target.id}`) link.setAttribute("aria-current", "location");
+          else link.removeAttribute("aria-current");
+        });
+      });
+    }, { rootMargin: "-30% 0px -60% 0px" });
+    sections.forEach((section) => sectionObserver.observe(section));
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+    const photoInput = document.getElementById("photo-input");
+    const frontPhoto = document.getElementById("front-photo");
+    const aboutPhoto = document.getElementById("about-photo");
+    const frontPlaceholder = document.getElementById("front-photo-placeholder");
+    const aboutPlaceholder = document.querySelector(".about-photo-placeholder");
+    const photoStatus = document.getElementById("photo-status");
+    const savedFrontPhoto = localStorage.getItem("portfolio-front-photo");
+    const savedAboutPhoto = localStorage.getItem("portfolio-about-photo");
+
+    function displayProfilePhoto(target, source) {
+      const image = target === "front" ? frontPhoto : aboutPhoto;
+      const placeholder = target === "front" ? frontPlaceholder : aboutPlaceholder;
+      image.src = source;
+      image.hidden = false;
+      placeholder.hidden = true;
+    }
+
+    if (savedFrontPhoto) displayProfilePhoto("front", savedFrontPhoto);
+    if (savedAboutPhoto) displayProfilePhoto("about", savedAboutPhoto);
+
+    document.querySelectorAll("[data-photo-change]").forEach((button) => {
+      button.addEventListener("click", () => {
+        photoInput.dataset.target = button.dataset.photoTarget;
+        photoInput.click();
+      });
+    });
+    photoInput.addEventListener("change", () => {
+      const file = photoInput.files[0];
+      if (!file) return;
+      const photoTarget = photoInput.dataset.target;
+      if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
+        photoStatus.textContent = "Please choose a JPG, PNG, or WebP image.";
+        photoInput.value = "";
+        return;
+      }
+      if (file.size > 10 * 1024 * 1024) {
+        photoStatus.textContent = "That image is too large. Choose a photo under 10 MB.";
+        photoInput.value = "";
+        return;
+      }
+
+      const source = new Image();
+      const sourceUrl = URL.createObjectURL(file);
+      source.onload = () => {
+        URL.revokeObjectURL(sourceUrl);
+        const scale = Math.min(1, 1200 / Math.max(source.naturalWidth, source.naturalHeight));
+        const canvas = document.createElement("canvas");
+        canvas.width = Math.round(source.naturalWidth * scale);
+        canvas.height = Math.round(source.naturalHeight * scale);
+        const context = canvas.getContext("2d");
+        if (!context) {
+          photoStatus.textContent = "Your browser could not process that photo. Please try another image.";
+          photoInput.value = "";
+          return;
+        }
+        context.fillStyle = "#fff";
+        context.fillRect(0, 0, canvas.width, canvas.height);
+        context.drawImage(source, 0, 0, canvas.width, canvas.height);
+        let compressedPhoto;
+        try {
+          compressedPhoto = canvas.toDataURL("image/jpeg", 0.82);
+        } catch {
+          photoStatus.textContent = "Could not process that photo. Please choose another image.";
+          photoInput.value = "";
+          return;
+        }
+        try {
+          localStorage.setItem(`portfolio-${photoTarget}-photo`, compressedPhoto);
+          displayProfilePhoto(photoTarget, compressedPhoto);
+          photoStatus.textContent = `${photoTarget === "front" ? "Front" : "About"} photo updated and saved in this browser.`;
+        } catch {
+          photoStatus.textContent = "Could not save this photo. Try a smaller image or clear browser storage.";
+        }
+        photoInput.value = "";
+      };
+      source.onerror = () => {
+        URL.revokeObjectURL(sourceUrl);
+        photoStatus.textContent = "Could not open that photo. Please choose another image.";
+        photoInput.value = "";
+      };
+      source.src = sourceUrl;
+    });
+
+  </script>
+</body>
+</html>
